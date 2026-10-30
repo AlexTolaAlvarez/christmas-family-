@@ -232,7 +232,14 @@ const RANGE_START = new Date(2026,11,1);  // 1 Dec
 const RANGE_END   = new Date(2027,0,6);   // 6 Jan
 const PEEK = location.hash === "#peek";
 /* Shared sync (optional). Paste your Firebase web-app config here; leave null for device-only mode. */
-const FIREBASE_CONFIG = null;
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBgaJ35bXJvAn0VgGhsrfn3Prr02cvXDrI",
+  authDomain: "family-christmas-a2b28.firebaseapp.com",
+  projectId: "family-christmas-a2b28",
+  storageBucket: "family-christmas-a2b28.firebasestorage.app",
+  messagingSenderId: "1014276321024",
+  appId: "1:1014276321024:web:71ccf0c0be8b6d92340de5"
+};
 const FAMILY_CODE = "tola-2026";
 
 /* Fixed festive dates (markers, not editable) */
@@ -595,6 +602,7 @@ renderWho(); renderDoors(); renderFilters(); renderDays(); renderWishes(); rende
 (async()=>{
   const mode = await Store.init();
   $("#subline").textContent = mode==="shared" ? "Shared with the family · live" : "Advent · plans · wishes · food (this device only)";
+  if (mode!=="shared" && FIREBASE_CONFIG) showBanner("Couldn't reach the shared family data — check your connection and reopen the app.");
   Store.subscribeDoc("doors/all", d=>{doorsOverride=d||{};});
   Store.subscribeCol("calendar", o=>{events=o||{};renderDays();});
   Store.subscribeCol("wishes", o=>{wishes=o||{};renderWishes();});
