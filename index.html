@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Family Christmas 2026</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2a1f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Christmas">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f2a1f; --bg2:#143626; --card:#1b4332; --card2:#22513d;
+  --ink:#f4efe6; --muted:#b9c9bf; --gold:#e4b95b; --gold2:#f3d58a;
+  --red:#c0392b; --red2:#e05a4c; --line:rgba(244,239,230,.12);
+  --r:16px; --shadow:0 8px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:
+  radial-gradient(1200px 600px at 20% -10%, rgba(228,185,91,.10), transparent 60%),
+  radial-gradient(900px 500px at 100% 0%, rgba(192,57,43,.14), transparent 60%),
+  var(--bg); min-height:100vh}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;margin:0;letter-spacing:-.01em}
+header{padding:22px 18px 10px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;max-width:980px;margin:0 auto}
+header h1{font-size:28px;line-height:1.05}
+header h1 span{color:var(--gold)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.who{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);flex:none}
+.who select{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 8px;font:inherit;font-size:14px;width:auto;min-width:96px}
+header h1{font-size:24px}
+@media(min-width:640px){header h1{font-size:30px}}
+main{max-width:980px;margin:0 auto;padding:8px 14px 110px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(15,42,31,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:20}
+nav.tabs button{background:none;border:0;color:var(--muted);font:inherit;font-size:11.5px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;border-radius:12px;cursor:pointer;min-width:64px}
+nav.tabs button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button.on{color:var(--gold2);background:rgba(228,185,91,.10)}
+section.view{display:none;animation:fade .25s ease}
+section.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 9px;border-radius:999px;background:rgba(228,185,91,.14);color:var(--gold2);border:1px solid rgba(228,185,91,.25)}
+.pill.red{background:rgba(192,57,43,.18);color:#ffb3aa;border-color:rgba(192,57,43,.35)}
+.pill.gray{background:rgba(255,255,255,.06);color:var(--muted);border-color:var(--line)}
+.btn{background:var(--gold);color:#2a1d07;border:0;border-radius:12px;padding:10px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.red{background:var(--red);color:#fff}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+input,textarea,select{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;font-size:15px;width:100%}
+input::placeholder,textarea::placeholder{color:#7f948a}
+label.f{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.grid{display:grid;gap:10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#2b2b2b;color:#fff;padding:10px 14px;border-radius:12px;font-size:13.5px;z-index:50;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.banner{font-size:13px;color:#ffd9a3;background:rgba(228,185,91,.10);border:1px solid rgba(228,185,91,.3);border-radius:12px;padding:10px 12px;margin:8px 0 14px}
+.hidden{display:none!important}
+
+/* Advent */
+.doors{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(min-width:640px){.doors{grid-template-columns:repeat(6,1fr)}}
+.door{aspect-ratio:1;border-radius:14px;border:1px solid var(--line);position:relative;cursor:pointer;overflow:hidden;background:linear-gradient(145deg,var(--card2),var(--card));transition:transform .15s;user-select:none}
+.door:active{transform:scale(.97)}
+.door .n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-size:26px;font-weight:700;color:var(--gold2)}
+.door.locked{opacity:.55;cursor:not-allowed}
+.door.locked .n{color:var(--muted)}
+.door.open{background:linear-gradient(145deg,#7b1e16,var(--red))}
+.door.open .n{color:#fff}
+.door.today{outline:2px solid var(--gold);outline-offset:2px}
+.door .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:40;padding:0}
+.modal.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));box-shadow:var(--shadow);max-height:88vh;overflow:auto}
+@media(min-width:640px){.modal{align-items:center;padding:20px}.sheet{border-radius:22px}}
+.sheet h2{font-size:24px;margin-bottom:6px}
+.sheet .kicker{color:var(--gold);font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.sheet p{line-height:1.5;color:#e6e1d6;margin:8px 0}
+
+/* Calendar */
+.day{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.day .d{text-align:center}
+.day .d .dow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.day .d .num{font-family:Fraunces,serif;font-size:26px;font-weight:700;line-height:1}
+.day .d .mon{font-size:11px;color:var(--muted)}
+.day.today .d .num{color:var(--gold)}
+.day.wknd .d .dow{color:#ffb3aa}
+.ev{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.04);margin-bottom:6px;font-size:14px}
+.ev.fixed{background:rgba(228,185,91,.08);border:1px dashed rgba(228,185,91,.25)}
+.ev .t{font-weight:600;min-width:46px;color:var(--gold2);font-size:12.5px;padding-top:2px}
+.ev .body{flex:1}
+.ev .meta{font-size:12px;color:var(--muted)}
+.ev .x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:16px;padding:0 4px;line-height:1}
+.addrow{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+@media(min-width:640px){.addrow{grid-template-columns:2fr 1fr 1fr auto}}
+.daywrap{display:flex;gap:8px;margin:12px 0;overflow:auto;padding-bottom:4px}
+.chip{white-space:nowrap;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;color:var(--ink)}
+.chip.on{background:var(--gold);color:#2a1d07;border-color:var(--gold)}
+
+/* Wishlist */
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+@media(min-width:640px){.people{grid-template-columns:repeat(4,1fr)}}
+.person{padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;text-align:center}
+.person.on{border-color:var(--gold);background:var(--card2)}
+.person .nm{font-family:Fraunces,serif;font-size:18px;font-weight:700}
+.person .ct{font-size:12px;color:var(--muted)}
+.wish{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.wish:last-child{border-bottom:0}
+.wish .body{flex:1}
+.wish .ti{font-weight:600;font-size:15px}
+.wish.taken .ti{text-decoration:line-through;color:var(--muted)}
+.wish .meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.wish a{color:var(--gold2)}
+.pri{font-size:11px;color:var(--muted)}
+
+/* Recipes */
+.recipes{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.recipes{grid-template-columns:1fr 1fr}}
+.rc{cursor:pointer;display:flex;gap:12px;align-items:center}
+.rc .ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;background:rgba(228,185,91,.12);flex:none}
+.rc h3{font-size:17px}
+.rc .meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.sheet ul,.sheet ol{padding-left:20px;line-height:1.55;color:#e6e1d6;margin:6px 0}
+.sheet li{margin:3px 0}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:4px}
+.sheet .close{position:sticky;top:0;float:right;background:rgba(255,255,255,.08);border:0;color:var(--ink);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+footer.note{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Family <span>Christmas</span> 2026</h1>
+    <div class="sub" id="subline">Advent calendar · plans · wishes · food</div>
+  </div>
+  <div class="who">
+    <span>I am</span>
+    <select id="whoSel" aria-label="Who are you?">
+      <option value="">— pick —</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <div class="banner hidden" id="syncBanner"></div>
+
+  <!-- ADVENT -->
+  <section class="view on" id="v-advent">
+    <div class="row" style="margin-bottom:12px">
+      <h2 style="font-size:22px">Julekalender</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="adventStatus">24 doors</span>
+    </div>
+    <div class="doors" id="doors"></div>
+    <footer class="note">One door per day, 1–24 December. Doors unlock on their date.</footer>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="view" id="v-cal">
+    <div class="row">
+      <h2 style="font-size:22px">Holiday calendar</h2>
+      <span class="spacer"></span>
+      <button class="btn ghost sm" id="todayBtn">Today</button>
+    </div>
+    <div class="daywrap" id="filters"></div>
+    <div class="card" id="dayAdd">
+      <div class="row" style="margin-bottom:6px"><strong id="addTitle">Add an activity</strong><span class="spacer"></span><span class="pill gray" id="addDateLabel"></span></div>
+      <div class="addrow">
+        <input id="evTitle" placeholder="What? e.g. Buy the tree, Dinner at grandma's">
+        <input id="evTime" placeholder="Time (optional)" inputmode="numeric">
+        <input id="evDate" type="date" min="2026-11-28" max="2027-01-06">
+        <button class="btn" id="evAdd">Add</button>
+      </div>
+      <div class="row" style="margin-top:8px;font-size:12.5px;color:var(--muted)">Who: <span id="evWho"></span></div>
+    </div>
+    <div class="card" style="margin-top:12px;padding:4px 16px" id="days"></div>
+  </section>
+
+  <!-- WISHLIST -->
+  <section class="view" id="v-wish">
+    <h2 style="font-size:22px;margin-bottom:10px">Wishlists</h2>
+    <div class="people" id="people"></div>
+    <div class="card" id="wishPanel">
+      <div class="row" style="margin-bottom:8px">
+        <h3 id="wishTitle" style="font-size:19px">Pick a person</h3>
+        <span class="spacer"></span>
+        <span class="pill gray" id="wishHint"></span>
+      </div>
+      <div id="wishList"></div>
+      <div id="wishAdd" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <input id="wTitle" placeholder="Wish (what?)" style="grid-column:1/-1">
+          <input id="wLink" placeholder="Link (optional)">
+          <input id="wPrice" placeholder="Approx. price (optional)">
+          <input id="wNote" placeholder="Size, colour, notes…" style="grid-column:1/-1">
+        </div>
+        <div class="row" style="margin-top:8px"><span class="spacer"></span><button class="btn" id="wAdd">Add wish</button></div>
+      </div>
+    </div>
+    <footer class="note">When you look at your own list, you won't see which gifts have been taken.</footer>
+  </section>
+
+  <!-- RECIPES -->
+  <section class="view" id="v-food">
+    <h2 style="font-size:22px;margin-bottom:10px">Christmas food</h2>
+    <div class="daywrap" id="foodFilters"></div>
+    <div class="recipes" id="recipes"></div>
+  </section>
+</main>
+
+<nav class="tabs">
+  <button data-v="advent" class="on"><svg viewBox="0 0 24 24"><path d="M12 3l3 5-3 2-3-2 3-5z"/><path d="M6 21h12M7 14h10l2 7H5l2-7z"/></svg>Advent</button>
+  <button data-v="cal"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</button>
+  <button data-v="wish"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13M12 8c-2-3-6-3-6-1 0 2 3 2 6 1zm0 0c2-3 6-3 6-1 0 2-3 2-6 1z"/></svg>Wishes</button>
+  <button data-v="food"><svg viewBox="0 0 24 24"><path d="M4 3v8a3 3 0 006 0V3M7 3v18M17 3c-2 2-3 5-3 8h3v10"/></svg>Food</button>
+</nav>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- constants ---------- */
+const FAMILY = ["Mali","Alex","Alvaro","Ragna"];
+const YEAR = 2026;
+const RANGE_START = new Date(2026,10,28); // 28 Nov
+const RANGE_END   = new Date(2027,0,6);   // 6 Jan
+const PEEK = location.hash === "#peek";
+/* Shared sync (optional). Paste your Firebase web-app config here; leave null for device-only mode. */
+const FIREBASE_CONFIG = null;
+const FAMILY_CODE = "tola-2026";
+
+/* Fixed festive dates (markers, not editable) */
+const FIXED = {
+  "2026-11-29":[{t:"1st Sunday of Advent — light the first candle",c:"NO"}],
+  "2026-12-06":[{t:"2nd Sunday of Advent",c:"NO"}],
+  "2026-12-13":[{t:"Lucia — lussekatter for breakfast",c:"NO"},{t:"3rd Sunday of Advent",c:"NO"}],
+  "2026-12-20":[{t:"4th Sunday of Advent",c:"NO"}],
+  "2026-12-22":[{t:"Lotería de Navidad — El Gordo draw (morning)",c:"ES"}],
+  "2026-12-23":[{t:"Lille julaften — decorate the tree",c:"NO"}],
+  "2026-12-24":[{t:"Julaften / Nochebuena — presents in the evening",c:"NO"}],
+  "2026-12-25":[{t:"1. juledag / Navidad",c:"NO"}],
+  "2026-12-26":[{t:"2. juledag",c:"NO"}],
+  "2026-12-28":[{t:"Día de los Santos Inocentes — pranks allowed",c:"ES"}],
+  "2026-12-31":[{t:"Nyttårsaften / Nochevieja — 12 grapes at midnight",c:"NO"}],
+  "2027-01-01":[{t:"New Year's Day",c:"NO"}],
+  "2027-01-05":[{t:"Cabalgata de Reyes (evening) — shoes out tonight",c:"ES"}],
+  "2027-01-06":[{t:"Día de Reyes — Roscón de Reyes",c:"ES"}]
+};
+
+/* Advent doors — default content; Editors can override via db doc doors/all */
+const DOORS_DEFAULT = [
+  ["Light the first candle","Make a cup of cocoa, light one candle and write down one thing each of you is looking forward to this December."],
+  ["Gingerbread dough day","Make pepperkake dough tonight (recipe under Food). It needs a night in the fridge — bake tomorrow."],
+  ["Bake and decorate","Bake the gingerbread. Whoever makes the ugliest cookie gets to pick tonight's film."],
+  ["Christmas playlist","Everyone adds three songs to a shared playlist. No vetoes allowed."],
+  ["Write to Santa / the Three Kings","Fill in your wishlist in the app — the others can't see what's been taken."],
+  ["Candle two","Second Sunday of Advent. Walk somewhere with Christmas lights after dark."],
+  ["Paper hearts","Fold and weave julekurver (paper heart baskets) for the tree. Fill them with raisins or nuts."],
+  ["Spanish evening","Turrón, polvorones and a Spanish Christmas song (villancico). Try 'Los peces en el río'."],
+  ["Board-game night","Phones in a box. Loser does the dishes until Christmas Eve."],
+  ["Riddle","What has to be broken before you can use it? (Answer at the bottom of tomorrow's door.)"],
+  ["Gløgg night","Make gløgg (recipe under Food). Alcohol-free for the young ones. Yesterday's answer: an egg."],
+  ["Secret good deed","Do one kind thing for someone in the family today without telling them. Confess on the 24th."],
+  ["Lucia","Lussekatter for breakfast. Bonus: sing one verse of Santa Lucia, even badly."],
+  ["Christmas film","Vote between two films. Blankets, popcorn, no talking during the sad bits."],
+  ["Clean-out and give","Everyone picks three things in good condition to give away before Christmas."],
+  ["Card writing","Write real paper cards to grandparents, aunts and uncles. Post them tomorrow."],
+  ["Plan the menu","Choose the Christmas Eve menu together from the recipes. Make the shopping list."],
+  ["Winter walk","Outside for an hour, whatever the weather. Hot drinks after."],
+  ["Marzipan","Make or buy marzipan and dip it in dark chocolate. Hide one with an almond inside."],
+  ["Candle four","Fourth Sunday of Advent. Big shopping done? Check the calendar for the next days."],
+  ["Gift wrapping","Wrap presents in secret shifts. Newspaper and string count as stylish."],
+  ["El Gordo","Spanish Christmas lottery is drawn this morning. Listen to the singing children for five minutes."],
+  ["Lille julaften","Decorate the tree. Risgrøt tonight — whoever finds the almond gets the marzipan pig."],
+  ["God jul · Feliz Navidad","Presents tonight. Tell the family what your secret good deed was."]
+];
+
+/* Recipes */
+const RECIPES = [
+ {id:"ribbe",n:"Ribbe (Norwegian pork belly)",ico:"🐖",tags:["Norway","Main"],time:"4 h",serves:"6",
+  ing:["3 kg pork belly with rind, bone-in (ribbe)","2–3 tbsp salt","1–2 tbsp black pepper","Water"],
+  steps:["Two days ahead: score the rind in a 1 cm diamond pattern through fat, not meat. Rub salt and pepper into all surfaces. Rest in the fridge, rind up, uncovered.","Place the ribbe rind-side up in a roasting tin on an upturned plate so the middle is higher than the edges. Add 2–3 dl water, cover tightly with foil.","Steam at 230 °C for 45 min.","Remove the foil and the plate, turn the oven down to 200 °C and roast 1.5–2 h until the rind puffs and crackles. If it doesn't crackle, finish under the grill a few minutes, watching constantly.","Rest 15 min before carving into squares. Serve with surkål, medisterkaker, prunes and boiled potatoes."]},
+ {id:"pinne",n:"Pinnekjøtt",ico:"🐑",tags:["Norway","Main"],time:"3 h + soaking",serves:"4",
+  ing:["1.5 kg salted, dried lamb ribs (pinnekjøtt), cut into ribs","Birch sticks or a steaming rack","1 kg swede (kålrabi), 4 potatoes, 1 dl cream, butter, nutmeg for kålrabistappe"],
+  steps:["Soak the ribs in cold water 24–30 h, changing the water once.","Lay birch sticks (or a rack) in the bottom of a large pot, add water to just below the sticks, and stack the ribs on top.","Steam, lid on, for about 3 h, topping up water as needed, until the meat loosens from the bone.","Kålrabistappe: boil swede and potatoes until soft, mash with butter, cream, a little cooking liquid from the lamb, salt and nutmeg.","Serve with the mash, boiled potatoes, and some of the fat from the pot as sauce."]},
+ {id:"riskrem",n:"Riskrem with red sauce",ico:"🍚",tags:["Norway","Dessert"],time:"1 h + cooling",serves:"6",
+  ing:["1.5 dl short-grain rice","3 dl water","1 litre whole milk","1 tsp salt","1 tsp vanilla sugar","4 dl whipping cream","2 tbsp sugar","1 whole almond","Sauce: 300 g raspberries or strawberries, 3 tbsp sugar, 1 tsp potato starch"],
+  steps:["Bring rice and water to the boil, cook 10 min, add milk and simmer gently 40–50 min, stirring now and then, until thick. Add salt and vanilla. This is risgrøt — eat some hot with butter, sugar and cinnamon on the 23rd.","Cool the leftover porridge completely.","Whip cream with sugar to soft peaks and fold into the cold porridge. Hide the almond.","Sauce: simmer berries with sugar, blend, strain, thicken with starch slurry, cool.","Whoever finds the almond wins a marzipan pig."]},
+ {id:"pepper",n:"Pepperkaker (gingerbread)",ico:"🍪",tags:["Norway","Baking"],time:"45 min + overnight",serves:"~80",
+  ing:["150 g butter","1.5 dl sugar","1.5 dl golden syrup (sirup)","1 dl double cream","1 tsp ground cinnamon","1 tsp ground ginger","1 tsp ground cloves","½ tsp ground cardamom","½ tsp black pepper","1.5 tsp baking soda","~450 g plain flour"],
+  steps:["Melt butter, sugar and syrup together, cool slightly, stir in cream and spices.","Mix baking soda into the flour and work into the wet mix to a smooth dough. Wrap and chill overnight.","Roll thin (2–3 mm) on a floured surface, cut shapes.","Bake at 175 °C for 8–10 min until just darkening at the edges. Cool on a rack.","Decorate with royal icing (icing sugar, egg white, drop of lemon)."]},
+ {id:"glogg",n:"Gløgg",ico:"🍷",tags:["Norway","Drink"],time:"30 min",serves:"8",
+  ing:["1 bottle red wine (or 1 litre blackcurrant cordial diluted, for the alcohol-free version)","2 dl water","1 dl sugar (less for the juice version)","2 cinnamon sticks","8 whole cloves","6 crushed cardamom pods","1 piece fresh ginger, sliced","Peel of 1 orange","Raisins and blanched almonds to serve"],
+  steps:["Simmer water, sugar, spices and orange peel 15 min to make a syrup. Strain.","Add the wine or juice and heat gently — never boil.","Put a spoonful of raisins and almonds in each glass and pour over."]},
+ {id:"lusse",n:"Lussekatter (saffron buns)",ico:"🌞",tags:["Norway","Baking"],time:"2.5 h",serves:"20",
+  ing:["0.5 g saffron","5 dl whole milk","150 g butter","50 g fresh yeast (or 2 sachets dry)","1.5 dl sugar","½ tsp salt","1 egg","~900 g plain flour","Raisins; 1 egg for brushing"],
+  steps:["Grind saffron with a little sugar. Melt butter, add milk, warm to 37 °C.","Dissolve yeast in the milk, add sugar, salt, saffron, egg and most of the flour. Knead 10 min to a smooth, slightly sticky dough. Rise 45 min.","Shape into ropes and curl both ends in opposite directions into an S. Press a raisin into each curl.","Rise 30 min, brush with egg, bake at 225 °C for 8–10 min."]},
+ {id:"pulpo",n:"Pulpo á feira (Galician octopus)",ico:"🐙",tags:["Spain","Starter"],time:"1 h",serves:"4",
+  ing:["1 octopus, ~1.5 kg (frozen and thawed — freezing tenderises it)","4 waxy potatoes","Coarse sea salt","Sweet and hot pimentón","Good olive oil","1 bay leaf"],
+  steps:["Bring a large pot of unsalted water to the boil with the bay leaf. Dip the octopus in and out three times ('asustar el pulpo') so the tentacles curl, then submerge.","Simmer 35–45 min until a knife slides in easily. Turn off and rest in the water 10–15 min.","Boil the potatoes in the octopus water, peel and slice.","Cut tentacles into 1 cm slices with scissors. Lay over potatoes on a wooden plate, sprinkle coarse salt and pimentón, drench in olive oil. Eat with toothpicks and bread."]},
+ {id:"cordero",n:"Cordero asado (roast lamb)",ico:"🔥",tags:["Spain","Main"],time:"2 h",serves:"6",
+  ing:["1 leg or shoulder of lamb, ~2 kg","4 garlic cloves","2 tbsp lard or olive oil","2 dl white wine","2 dl water","1 bay leaf, fresh thyme","Salt and pepper","Lettuce, onion and tomato for the traditional salad"],
+  steps:["Rub lamb with crushed garlic, salt, pepper and fat. Rest 1 h at room temperature.","Place in a clay or roasting dish with water, bay and thyme. Roast at 180 °C for 1 h, skin down.","Turn skin up, pour over the wine, roast another 45–60 min, basting, until golden and the meat gives.","Rest 10 min. Serve with the pan juices and a sharp salad to cut the fat."]},
+ {id:"roscon",n:"Roscón de Reyes",ico:"👑",tags:["Spain","Baking"],time:"4 h",serves:"10",
+  ing:["500 g strong flour","100 g sugar","120 ml whole milk","2 eggs + 1 for brushing","80 g soft butter","15 g fresh yeast","Zest of 1 orange and 1 lemon","2 tbsp orange-blossom water","1 tbsp rum (optional)","Pinch salt","Candied fruit, pearl sugar, flaked almonds","1 dried bean and 1 small figurine, wrapped in foil"],
+  steps:["Dissolve yeast in lukewarm milk. Mix with flour, sugar, eggs, zests, orange-blossom water, rum and salt. Knead 10 min, then work in the butter until smooth and elastic. Rise 1.5–2 h.","Shape into a ring on a lined tray, hide the bean and figurine from underneath. Rise 1 h.","Brush with egg, decorate with candied fruit, pearl sugar and almonds.","Bake at 180 °C for 20–25 min. Cool, slice horizontally and fill with whipped cream if you like.","Whoever gets the figurine is crowned; whoever gets the bean pays for next year's roscón."]},
+ {id:"santiago",n:"Tarta de Santiago",ico:"✝️",tags:["Spain","Dessert"],time:"1 h",serves:"8",
+  ing:["250 g ground almonds","250 g sugar","5 eggs","Zest of 1 lemon","½ tsp ground cinnamon","Icing sugar for dusting","Butter for the tin"],
+  steps:["Beat eggs and sugar until pale and thick.","Fold in ground almonds, lemon zest and cinnamon.","Pour into a buttered 24 cm tin. Bake at 175 °C for 35–40 min until golden and set.","Cool, lay a paper cross of St James in the middle and dust heavily with icing sugar. Lift off the paper."]},
+ {id:"turron",n:"Turrón de chocolate crujiente",ico:"🍫",tags:["Spain","Sweet"],time:"20 min + chilling",serves:"12",
+  ing:["200 g dark chocolate","100 g milk chocolate","60 g butter or lard","80 g puffed rice","Pinch of salt"],
+  steps:["Melt both chocolates with the butter over a water bath. Stir in salt.","Fold in the puffed rice until fully coated.","Press into a lined loaf tin, smooth the top, chill 4 h.","Turn out and cut into thick bars. Keeps two weeks in the fridge."]},
+ {id:"surkal",n:"Surkål (red or white)",ico:"🥬",tags:["Norway","Side"],time:"1.5 h",serves:"6",
+  ing:["1 small cabbage (white or red), finely shredded","1 tart apple, grated","2 tbsp butter","1 tsp caraway seeds","2 tbsp sugar","2 tbsp vinegar (red: add 1 dl blackcurrant juice)","Salt, 1 dl water"],
+  steps:["Melt butter, add cabbage, apple, caraway, sugar, vinegar, water and salt.","Simmer under a lid 1–1.5 h, stirring occasionally, until soft and glossy.","Adjust sweet and sour at the end. Better made the day before."]}
+];
+
+/* ---------- utilities ---------- */
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2,"0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const todayIso = () => iso(new Date());
+const uid = () => Math.random().toString(36).slice(2,10);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let toastT; function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2600);}
+const LS = {get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+
+/* ---------- storage layer: shared db with local fallback ---------- */
+const Store = {
+  db:null, user:null, canWrite:null, mode:"local", readOnly:false,
+  listeners:{}, // local emitter
+  async init(){
+    if (!FIREBASE_CONFIG) return this.mode;
+    try{
+      const load=src=>new Promise((ok,err)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=err;document.head.appendChild(s);});
+      await load("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
+      await load("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js");
+      firebase.initializeApp(FIREBASE_CONFIG);
+      const fs=firebase.firestore();
+      try{ await fs.enablePersistence({synchronizeTabs:true}); }catch(e){}
+      const root="families/"+FAMILY_CODE+"/";
+      this.db={ doc:p=>fs.doc(root+p), collection:p=>fs.collection(root+p) };
+      this.mode="shared";
+    }catch(e){ console.warn("Firebase unavailable", e); }
+    return this.mode;
+  },
+  subscribeDoc(path, cb){
+    if (this.db){
+      return this.db.doc(path).onSnapshot(s=>cb(s.exists?s.data():null), e=>{console.warn(e); showBanner("Live sync unavailable — showing what's on this device.");});
+    }
+    const k="xmas:"+path; cb(LS.get(k,null));
+    (this.listeners[k] ||= []).push(cb); return ()=>{};
+  },
+  subscribeCol(path, cb){
+    if (this.db){
+      return this.db.collection(path).onSnapshot(s=>{const o={}; s.docs.forEach(d=>o[d.id]=d.data()); cb(o);}, e=>console.warn(e));
+    }
+    const k="xmas:"+path; const emit=()=>cb(LS.get(k,{}));
+    emit(); (this.listeners[k] ||= []).push(emit); return ()=>{};
+  },
+  async setDoc(path, data){
+    if (this.db){
+      try{ await this.db.doc(path).set(data); return true; }
+      catch(e){
+        console.warn(e);
+        if (e && e.code==="permission-denied"){ this.readOnly=true; showBanner("Saving is blocked — the database rules need updating."); }
+        else toast("Couldn't save — check your connection and try again.");
+        return false;
+      }
+    }
+    // local: path = col/id
+    const i=path.lastIndexOf("/"); const col="xmas:"+path.slice(0,i), id=path.slice(i+1);
+    if (i<0 || path.split("/").length!==2){ LS.set("xmas:"+path,data); (this.listeners["xmas:"+path]||[]).forEach(f=>f(data)); return true; }
+    const o=LS.get(col,{}); if (data===null) delete o[id]; else o[id]=data; LS.set(col,o);
+    (this.listeners[col]||[]).forEach(f=>f()); return true;
+  },
+  async delDoc(path){
+    if (this.db){ try{ await this.db.doc(path).delete(); return true;}catch(e){console.warn(e); toast("Couldn't delete."); return false;} }
+    return this.setDoc(path,null);
+  }
+};
+function showBanner(msg){const b=$("#syncBanner"); b.textContent=msg; b.classList.remove("hidden");}
+
+/* ---------- identity (name picker) ---------- */
+let ME = LS.get("xmas:me","");
+const whoSel=$("#whoSel");
+FAMILY.forEach(n=>{const o=document.createElement("option");o.value=n;o.textContent=n;whoSel.appendChild(o);});
+whoSel.value=ME;
+whoSel.onchange=()=>{ME=whoSel.value;LS.set("xmas:me",ME);renderWho();renderWishes();};
+function renderWho(){ $("#evWho").textContent = ME || "pick your name at the top"; }
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav.tabs button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id==="v-"+b.dataset.v));
+  LS.set("xmas:tab",b.dataset.v); window.scrollTo(0,0);
+});
+(function(){const t=LS.get("xmas:tab","advent");const b=document.querySelector(`nav.tabs button[data-v="${t}"]`);if(b)b.click();})();
+
+/* ---------- modal ---------- */
+const modal=$("#modal"), sheet=$("#sheet");
+function openSheet(html){sheet.innerHTML=`<button class="close" aria-label="Close">×</button>`+html; modal.classList.add("on"); sheet.querySelector(".close").onclick=closeSheet;}
+function closeSheet(){modal.classList.remove("on");}
+modal.addEventListener("click",e=>{if(e.target===modal)closeSheet();});
+
+/* ---------- ADVENT ---------- */
+let doorsOverride={};
+let opened = LS.get("xmas:opened",{});
+function doorUnlocked(n){
+  if (PEEK) return true;
+  const now=new Date(); const unlock=new Date(YEAR,11,n); // Dec n, 00:00 local
+  return now>=unlock;
+}
+function renderDoors(){
+  const wrap=$("#doors"); wrap.innerHTML="";
+  const t=new Date(); const isDec = t.getFullYear()===YEAR && t.getMonth()===11;
+  let openCount=0;
+  for(let n=1;n<=24;n++){
+    const d=document.createElement("div"); d.className="door";
+    const unlocked=doorUnlocked(n); if(!unlocked) d.classList.add("locked");
+    if(opened[n]){d.classList.add("open");openCount++;}
+    if(isDec && t.getDate()===n) d.classList.add("today");
+    if(unlocked && !opened[n]) d.innerHTML=`<span class="dot"></span>`;
+    d.innerHTML+=`<div class="n">${n}</div>`;
+    d.onclick=()=>{
+      if(!unlocked){ toast(`Door ${n} opens on ${n} December.`); return; }
+      opened[n]=true; LS.set("xmas:opened",opened);
+      const c = doorsOverride[n] || {title:DOORS_DEFAULT[n-1][0], text:DOORS_DEFAULT[n-1][1]};
+      openSheet(`<div class="kicker">${n} December</div><h2>${esc(c.title)}</h2><p>${esc(c.text)}</p>
+        ${Store.mode==="shared" && !Store.readOnly ? `<div class="row" style="margin-top:14px"><button class="btn ghost sm" id="editDoor">Edit this door</button></div>`:""}`);
+      const eb=$("#editDoor"); if(eb) eb.onclick=()=>editDoor(n,c);
+      renderDoors();
+    };
+    wrap.appendChild(d);
+  }
+  const days = isDec ? Math.min(t.getDate(),24) : (t<new Date(YEAR,11,1)? 0 : 24);
+  $("#adventStatus").textContent = days===0 ? `Opens 1 December` : `${openCount} of ${days} opened`;
+}
+function editDoor(n,c){
+  openSheet(`<div class="kicker">Edit door ${n}</div>
+    <label class="f">Title</label><input id="dT" value="${esc(c.title)}">
+    <label class="f" style="margin-top:8px">Text</label><textarea id="dX" rows="4">${esc(c.text)}</textarea>
+    <div class="row" style="margin-top:12px"><button class="btn ghost sm" id="dReset">Reset to default</button><span class="spacer"></span><button class="btn" id="dSave">Save for everyone</button></div>`);
+  $("#dSave").onclick=async()=>{
+    const o={...doorsOverride}; o[n]={title:$("#dT").value.trim()||c.title, text:$("#dX").value.trim()};
+    if(await Store.setDoc("doors/all",o)){ closeSheet(); toast("Door updated."); }
+  };
+  $("#dReset").onclick=async()=>{ const o={...doorsOverride}; delete o[n]; if(await Store.setDoc("doors/all",o)){closeSheet();toast("Door reset.");} };
+}
+
+/* ---------- CALENDAR ---------- */
+let events={}; // id -> {date,title,time,who,by}
+let filter="all";
+const FILTERS=["all","Fixed dates",...FAMILY];
+function renderFilters(){
+  const w=$("#filters"); w.innerHTML="";
+  FILTERS.forEach(f=>{const c=document.createElement("button");c.className="chip"+(filter===f?" on":"");c.textContent=f==="all"?"Everything":f;c.onclick=()=>{filter=f;renderFilters();renderDays();};w.appendChild(c);});
+}
+function renderDays(){
+  const w=$("#days"); w.innerHTML="";
+  const today=todayIso();
+  for(let d=new Date(RANGE_START); d<=RANGE_END; d.setDate(d.getDate()+1)){
+    const k=iso(d);
+    const fixed=(FIXED[k]||[]);
+    const evs=Object.entries(events).filter(([id,e])=>e&&e.date===k).sort((a,b)=>(a[1].time||"").localeCompare(b[1].time||""));
+    let showFixed = filter==="all"||filter==="Fixed dates";
+    let shownEvs = evs.filter(([id,e])=> filter==="all" || (FAMILY.includes(filter) && (e.who===filter || e.who==="Everyone")));
+    if (filter==="Fixed dates") shownEvs=[];
+    const empty = !(showFixed&&fixed.length) && !shownEvs.length;
+    const row=document.createElement("div"); row.className="day"+(k===today?" today":"")+([0,6].includes(d.getDay())?" wknd":"");
+    row.id="d-"+k;
+    row.innerHTML=`<div class="d"><div class="dow">${DOW[d.getDay()]}</div><div class="num">${d.getDate()}</div><div class="mon">${MON[d.getMonth()]}</div></div><div class="evs"></div>`;
+    const evsEl=row.querySelector(".evs");
+    if (showFixed) fixed.forEach(f=>{const e=document.createElement("div");e.className="ev fixed";e.innerHTML=`<span class="t">${f.c==="ES"?"🇪🇸":"🇳🇴"}</span><div class="body">${esc(f.t)}</div>`;evsEl.appendChild(e);});
+    shownEvs.forEach(([id,e])=>{
+      const el=document.createElement("div"); el.className="ev";
+      el.innerHTML=`<span class="t">${esc(e.time||"")}</span><div class="body">${esc(e.title)}<div class="meta">${esc(e.who||"")}${e.by&&e.by!==e.who?` · added by ${esc(e.by)}`:""}</div></div><button class="x" title="Remove">×</button>`;
+      el.querySelector(".x").onclick=async()=>{ if(await Store.delDoc("calendar/"+id)) toast("Removed."); };
+      evsEl.appendChild(el);
+    });
+    if (empty){ const e=document.createElement("div"); e.className="ev"; e.style.opacity=".45"; e.innerHTML=`<span class="t"></span><div class="body">—</div>`; evsEl.appendChild(e); }
+    row.querySelector(".d").style.cursor="pointer";
+    row.querySelector(".d").onclick=()=>{ $("#evDate").value=k; $("#addDateLabel").textContent=prettyDate(k); $("#evTitle").focus(); window.scrollTo({top:0,behavior:"smooth"}); };
+    w.appendChild(row);
+  }
+}
+function prettyDate(k){const [y,m,d]=k.split("-").map(Number);const dt=new Date(y,m-1,d);return `${DOW[dt.getDay()]} ${d} ${MON[m-1]}`;}
+$("#evDate").onchange=()=>$("#addDateLabel").textContent=prettyDate($("#evDate").value);
+$("#evAdd").onclick=async()=>{
+  const title=$("#evTitle").value.trim(), time=$("#evTime").value.trim(), date=$("#evDate").value;
+  if(!title){toast("Write what the activity is.");return;}
+  if(!date){toast("Pick a date.");return;}
+  const id=uid();
+  const ok=await Store.setDoc("calendar/"+id,{date,title,time,who:ME||"Everyone",by:ME||"",created:Date.now()});
+  if(ok){ $("#evTitle").value="";$("#evTime").value=""; toast("Added."); setTimeout(()=>{const el=$("#d-"+date);if(el)el.scrollIntoView({behavior:"smooth",block:"center"});},200); }
+};
+$("#todayBtn").onclick=()=>{const el=$("#d-"+todayIso()); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); else toast("Today is outside the holiday range.");};
+(function(){ const t=todayIso(); const def = (t>="2026-11-28"&&t<="2027-01-06")?t:"2026-12-24"; $("#evDate").value=def; $("#addDateLabel").textContent=prettyDate(def); })();
+
+/* ---------- WISHLIST ---------- */
+let wishes={}; // name -> {items:[...]}
+let viewing = LS.get("xmas:viewing","");
+function renderPeople(){
+  const w=$("#people"); w.innerHTML="";
+  FAMILY.forEach(n=>{
+    const items=(wishes[n]&&wishes[n].items)||[];
+    const taken = items.filter(i=>i.takenBy).length;
+    const p=document.createElement("div"); p.className="person"+(viewing===n?" on":"");
+    const sub = n===ME ? `${items.length} wish${items.length===1?"":"es"}` : `${items.length} wish${items.length===1?"":"es"} · ${taken} taken`;
+    p.innerHTML=`<div class="nm">${esc(n)}</div><div class="ct">${sub}</div>`;
+    p.onclick=()=>{viewing=n;LS.set("xmas:viewing",n);renderWishes();};
+    w.appendChild(p);
+  });
+}
+function renderWishes(){
+  renderPeople();
+  const list=$("#wishList"), title=$("#wishTitle"), hint=$("#wishHint"), add=$("#wishAdd");
+  if(!viewing){ title.textContent="Pick a person"; hint.textContent=""; list.innerHTML=""; add.classList.add("hidden"); return; }
+  const mine = viewing===ME;
+  title.textContent = mine ? "My wishlist" : `${viewing}'s wishlist`;
+  hint.textContent = mine ? "Others see what's taken — you don't" : (ME ? "Tap 'I'll get this' to claim" : "Pick your name to claim gifts");
+  add.classList.toggle("hidden", !mine);
+  const items=(wishes[viewing]&&wishes[viewing].items)||[];
+  if(!items.length){ list.innerHTML=`<div style="color:var(--muted);padding:12px 0">${mine?"Nothing yet — add your first wish below.":"Nothing on the list yet."}</div>`; return; }
+  list.innerHTML="";
+  items.forEach(it=>{
+    const taken=!mine && !!it.takenBy;
+    const el=document.createElement("div"); el.className="wish"+(taken?" taken":"");
+    const link = it.link ? `<a href="${esc(/^https?:\/\//i.test(it.link)?it.link:"https://"+it.link)}" target="_blank" rel="noopener">link</a>` : "";
+    const metaBits=[it.price, it.note, link].filter(Boolean).join(" · ");
+    let action="";
+    if(mine) action=`<button class="btn ghost sm" data-a="del">Remove</button>`;
+    else if(!ME) action="";
+    else if(!it.takenBy) action=`<button class="btn sm" data-a="take">I'll get this</button>`;
+    else if(it.takenBy===ME) action=`<button class="btn ghost sm" data-a="untake">Taken by me · undo</button>`;
+    else action=`<span class="pill red">Taken by ${esc(it.takenBy)}</span>`;
+    el.innerHTML=`<div class="body"><div class="ti">${esc(it.title)}</div>${metaBits?`<div class="meta">${metaBits}</div>`:""}</div><div>${action}</div>`;
+    const b=el.querySelector("button[data-a]");
+    if(b) b.onclick=async()=>{
+      const next = items.map(x=>({...x}));
+      const i=next.findIndex(x=>x.id===it.id);
+      if(b.dataset.a==="del"){ next.splice(i,1); }
+      else if(b.dataset.a==="take"){ next[i].takenBy=ME; }
+      else if(b.dataset.a==="untake"){ next[i].takenBy=""; }
+      const ok=await Store.setDoc("wishes/"+viewing,{items:next,updated:Date.now()});
+      if(ok) toast(b.dataset.a==="take"?"Claimed — the others can see it, "+viewing+" can't.":"Saved.");
+    };
+    list.appendChild(el);
+  });
+}
+$("#wAdd").onclick=async()=>{
+  if(viewing!==ME) return;
+  const title=$("#wTitle").value.trim(); if(!title){toast("What do you wish for?");return;}
+  const items=((wishes[ME]&&wishes[ME].items)||[]).map(x=>({...x}));
+  items.push({id:uid(),title,link:$("#wLink").value.trim(),price:$("#wPrice").value.trim(),note:$("#wNote").value.trim(),takenBy:"",created:Date.now()});
+  const ok=await Store.setDoc("wishes/"+ME,{items,updated:Date.now()});
+  if(ok){ ["#wTitle","#wLink","#wPrice","#wNote"].forEach(s=>$(s).value=""); toast("Wish added."); }
+};
+
+/* ---------- RECIPES ---------- */
+let foodFilter="All";
+const FOOD_FILTERS=["All","Norway","Spain","Main","Baking","Dessert","Drink"];
+function renderFoodFilters(){
+  const w=$("#foodFilters"); w.innerHTML="";
+  FOOD_FILTERS.forEach(f=>{const c=document.createElement("button");c.className="chip"+(foodFilter===f?" on":"");c.textContent=f;c.onclick=()=>{foodFilter=f;renderFoodFilters();renderRecipes();};w.appendChild(c);});
+}
+function renderRecipes(){
+  const w=$("#recipes"); w.innerHTML="";
+  RECIPES.filter(r=>foodFilter==="All"||r.tags.includes(foodFilter)).forEach(r=>{
+    const c=document.createElement("div"); c.className="card rc";
+    c.innerHTML=`<div class="ico">${r.ico}</div><div><h3>${esc(r.n)}</h3><div class="meta">${r.tags.map(t=>`<span class="tag">${t}</span>`).join("")} ${r.time} · serves ${r.serves}</div></div>`;
+    c.onclick=()=>{ openSheet(`<div class="kicker">${r.tags.join(" · ")} · ${r.time} · serves ${r.serves}</div><h2>${esc(r.n)}</h2>
+      <h3 style="font-size:15px;margin-top:12px;color:var(--gold2)">Ingredients</h3><ul>${r.ing.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+      <h3 style="font-size:15px;margin-top:12px;color:var(--gold2)">Method</h3><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+      <div class="row" style="margin-top:14px"><label class="f" style="margin:0">Cook on</label><input type="date" id="rDate" style="width:auto" min="2026-11-28" max="2027-01-06" value="2026-12-24"><button class="btn sm" id="rPlan">Add to calendar</button></div>`);
+      $("#rPlan").onclick=async()=>{
+        const date=$("#rDate").value; if(!date) return;
+        const ok=await Store.setDoc("calendar/"+uid(),{date,title:"Cook: "+r.n,time:"",who:ME||"Everyone",by:ME||"",created:Date.now()});
+        if(ok){ closeSheet(); toast("Added to "+prettyDate(date)+"."); }
+      };
+    };
+    w.appendChild(c);
+  });
+}
+
+/* ---------- boot ---------- */
+renderWho(); renderDoors(); renderFilters(); renderDays(); renderWishes(); renderFoodFilters(); renderRecipes();
+(async()=>{
+  const mode = await Store.init();
+  $("#subline").textContent = mode==="shared" ? "Shared with the family · live" : "Advent · plans · wishes · food (this device only)";
+  Store.subscribeDoc("doors/all", d=>{doorsOverride=d||{};});
+  Store.subscribeCol("calendar", o=>{events=o||{};renderDays();});
+  Store.subscribeCol("wishes", o=>{wishes=o||{};renderWishes();});
+})();
+
+/* ---------- PWA: service worker + install hint ---------- */
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(e=>console.warn("sw",e)));
+}
+(function(){
+  const standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
+  if (standalone || LS.get("xmas:installHintDismissed",false)) return;
+  const ua=navigator.userAgent; const isIOS=/iPhone|iPad|iPod/.test(ua); const isAndroid=/Android/.test(ua);
+  if(!isIOS && !isAndroid) return;
+  let deferred=null;
+  window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferred=e; show(); });
+  function show(){
+    if ($("#installHint")) return;
+    const b=document.createElement("div"); b.className="banner"; b.id="installHint";
+    b.innerHTML = (isIOS
+      ? `<strong>Install as an app:</strong> tap the Share button <span style="font-size:15px">⎋</span> in Safari, then <em>Add to Home Screen</em>.`
+      : `<strong>Install as an app</strong> for a full-screen icon on your phone.`)
+      + ` <span style="float:right;display:flex;gap:8px">${deferred?`<button class="btn sm" id="instBtn">Install</button>`:""}<button class="btn ghost sm" id="instNo">Later</button></span>`;
+    $("main").prepend(b);
+    $("#instNo").onclick=()=>{b.remove();LS.set("xmas:installHintDismissed",true);};
+    const ib=$("#instBtn"); if(ib) ib.onclick=async()=>{ deferred.prompt(); try{await deferred.userChoice;}catch{} b.remove(); };
+  }
+  if (isIOS) setTimeout(show, 1500);
+})();
+</script>
+</body>
+</html>
