@@ -602,7 +602,9 @@ renderWho(); renderDoors(); renderFilters(); renderDays(); renderWishes(); rende
 
 /* ---------- PWA: service worker + install hint ---------- */
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-  window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").catch(e=>console.warn("sw",e)));
+  window.addEventListener("load", ()=>navigator.serviceWorker.register("sw.js").then(reg=>{ try{reg.update();}catch{} }).catch(e=>console.warn("sw",e)));
+  let reloaded=false;
+  navigator.serviceWorker.addEventListener("controllerchange", ()=>{ if(reloaded) return; reloaded=true; location.reload(); });
 }
 (function(){
   const standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
