@@ -543,7 +543,7 @@ function renderWishes(){
     const link = it.link ? `<a href="${esc(/^https?:\/\//i.test(it.link)?it.link:"https://"+it.link)}" target="_blank" rel="noopener">link</a>` : "";
     const metaBits=[it.price, it.note, link].filter(Boolean).join(" · ");
     let action="";
-    if(mine) action=`<button class="btn ghost sm" data-a="del">Remove</button>`;
+    if(mine) action=`<div style="display:flex;gap:6px"><button class="btn ghost sm" data-a="edit">Edit</button><button class="btn ghost sm" data-a="del">Remove</button></div>`;
     else if(!ME) action="";
     else if(!it.takenBy) action=`<button class="btn sm" data-a="take">I'll get this</button>`;
     else if(it.takenBy===ME) action=`<button class="btn ghost sm" data-a="untake">Taken by me · undo</button>`;
@@ -553,6 +553,7 @@ function renderWishes(){
     if(b) b.onclick=async()=>{
       const next = items.map(x=>({...x}));
       const i=next.findIndex(x=>x.id===it.id);
+      if(b.dataset.a==="edit"){ editWish(it); return; }
       if(b.dataset.a==="del"){ next.splice(i,1); }
       else if(b.dataset.a==="take"){ next[i].takenBy=ME; }
       else if(b.dataset.a==="untake"){ next[i].takenBy=""; }
@@ -561,6 +562,22 @@ function renderWishes(){
     };
     list.appendChild(el);
   });
+}
+function editWish(it){
+  openSheet(`<div class="kicker">Edit wish</div>
+    <label class="f">Wish</label><input id="eT" value="${esc(it.title)}">
+    <label class="f" style="margin-top:8px">Link</label><input id="eL" value="${esc(it.link||"")}" placeholder="optional">
+    <label class="f" style="margin-top:8px">Approx. price</label><input id="eP" value="${esc(it.price||"")}" placeholder="optional">
+    <label class="f" style="margin-top:8px">Size, colour, notes</label><input id="eN" value="${esc(it.note||"")}" placeholder="optional">
+    <div class="row" style="margin-top:14px"><span class="spacer"></span><button class="btn" id="eSave">Save</button></div>`);
+  $("#eSave").onclick=async()=>{
+    const title=$("#eT").value.trim(); if(!title){toast("The wish needs a name.");return;}
+    const items=((wishes[ME]&&wishes[ME].items)||[]).map(x=>({...x}));
+    const i=items.findIndex(x=>x.id===it.id); if(i<0){closeSheet();return;}
+    items[i]={...items[i],title,link:$("#eL").value.trim(),price:$("#eP").value.trim(),note:$("#eN").value.trim()};
+    const ok=await Store.setDoc("wishes/"+ME,{items,updated:Date.now()});
+    if(ok){ closeSheet(); toast("Saved."); }
+  };
 }
 $("#wAdd").onclick=async()=>{
   if(viewing!==ME) return;
