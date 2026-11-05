@@ -118,6 +118,11 @@ label.f{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
 .wish .meta{font-size:12.5px;color:var(--muted);margin-top:2px}
 .wish a{color:var(--gold2)}
 .pri{font-size:11px;color:var(--muted)}
+.thumb{width:56px;height:56px;border-radius:10px;object-fit:cover;background:rgba(255,255,255,.06);flex:none;cursor:pointer;border:1px solid var(--line)}
+.thumb.empty{display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--muted)}
+.photoRow{display:flex;align-items:center;gap:10px;margin-top:8px}
+.photoRow img{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid var(--line)}
+.bigimg{width:100%;max-height:70vh;object-fit:contain;border-radius:12px;background:#000}
 
 /* Recipes */
 .recipes{display:grid;grid-template-columns:1fr;gap:10px}
@@ -200,6 +205,7 @@ footer.note{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
           <input id="wPrice" placeholder="Approx. price (optional)">
           <input id="wNote" placeholder="Size, colour, notes…" style="grid-column:1/-1">
         </div>
+        <div class="photoRow"><label class="btn ghost sm" style="cursor:pointer">📷 Add photo<input type="file" id="wPhoto" accept="image/*" style="display:none"></label><img id="wPhotoPrev" class="hidden" alt=""><button class="btn ghost sm hidden" id="wPhotoClear">Remove photo</button></div>
         <div class="row" style="margin-top:8px"><span class="spacer"></span><button class="btn" id="wAdd">Add wish</button></div>
       </div>
     </div>
@@ -388,6 +394,11 @@ const Store = {
     const o=LS.get(col,{}); if (data===null) delete o[id]; else o[id]=data; LS.set(col,o);
     (this.listeners[col]||[]).forEach(f=>f()); return true;
   },
+  async getDoc(path){
+    if (this.db){ try{ const s=await this.db.doc(path).get(); return s.exists?s.data():null; }catch(e){ console.warn(e); return null; } }
+    const i=path.lastIndexOf("/"); const col="xmas:"+path.slice(0,i), id=path.slice(i+1);
+    return (LS.get(col,{})||{})[id]||null;
+  },
   async delDoc(path){
     if (this.db){ try{ await this.db.doc(path).delete(); return true;}catch(e){console.warn(e); toast("Couldn't delete."); return false;} }
     return this.setDoc(path,null);
@@ -549,12 +560,13 @@ function renderWishes(){
     else if(it.takenBy===ME) action=`<button class="btn ghost sm" data-a="untake">Taken by me · undo</button>`;
     else action=`<span class="pill red">Taken by ${esc(it.takenBy)}</span>`;
     el.innerHTML=`<div class="body"><div class="ti">${esc(it.title)}</div>${metaBits?`<div class="meta">${metaBits}</div>`:""}</div><div>${action}</div>`;
+    el.prepend(thumbEl(it));
     const b=el.querySelector("button[data-a]");
     if(b) b.onclick=async()=>{
       const next = items.map(x=>({...x}));
       const i=next.findIndex(x=>x.id===it.id);
       if(b.dataset.a==="edit"){ editWish(it); return; }
-      if(b.dataset.a==="del"){ next.splice(i,1); }
+      if(b.dataset.a==="del"){ const [gone]=next.splice(i,1); if(gone&&gone.img) Store.delDoc("images/"+gone.img); }
       else if(b.dataset.a==="take"){ next[i].takenBy=ME; }
       else if(b.dataset.a==="untake"){ next[i].takenBy=""; }
       const ok=await Store.setDoc("wishes/"+viewing,{items:next,updated:Date.now()});
@@ -563,18 +575,48 @@ function renderWishes(){
     list.appendChild(el);
   });
 }
+/* ---- wish photos: resized on device, stored as small data URLs in images/<id> ---- */
+const imgCache={};
+function shrinkImage(file, max=480, q=0.72){
+  return new Promise((ok,err)=>{
+    const url=URL.createObjectURL(file); const im=new Image();
+    im.onload=()=>{ const r=Math.min(1,max/Math.max(im.width,im.height)); const c=document.createElement("canvas");
+      c.width=Math.round(im.width*r); c.height=Math.round(im.height*r);
+      c.getContext("2d").drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(url); ok(c.toDataURL("image/jpeg",q)); };
+    im.onerror=()=>{URL.revokeObjectURL(url);err(new Error("bad image"));}; im.src=url;
+  });
+}
+async function saveImage(dataUrl){ const id=uid(); const ok=await Store.setDoc("images/"+id,{d:dataUrl,created:Date.now()}); if(ok){imgCache[id]=dataUrl;return id;} return null; }
+async function loadImage(id){ if(!id) return null; if(imgCache[id]) return imgCache[id]; const d=await Store.getDoc("images/"+id); if(d&&d.d) imgCache[id]=d.d; return imgCache[id]||null; }
+function thumbEl(it){
+  const t=document.createElement("div"); t.className="thumb empty"; t.textContent="🎁";
+  if(it.img){ loadImage(it.img).then(d=>{ if(!d) return; const im=document.createElement("img"); im.className="thumb"; im.src=d; im.alt=""; im.onclick=()=>openSheet(`<h2 style="font-size:20px">${esc(it.title)}</h2><img class="bigimg" src="${d}" alt="" style="margin-top:10px">`); t.replaceWith(im); }); }
+  return t;
+}
+let pendingPhoto=null;
+$("#wPhoto").onchange=async()=>{ const f=$("#wPhoto").files[0]; if(!f) return; try{ pendingPhoto=await shrinkImage(f); $("#wPhotoPrev").src=pendingPhoto; $("#wPhotoPrev").classList.remove("hidden"); $("#wPhotoClear").classList.remove("hidden"); }catch{ toast("Couldn't read that image."); } };
+$("#wPhotoClear").onclick=()=>{ pendingPhoto=null; $("#wPhoto").value=""; $("#wPhotoPrev").classList.add("hidden"); $("#wPhotoClear").classList.add("hidden"); };
+
 function editWish(it){
   openSheet(`<div class="kicker">Edit wish</div>
     <label class="f">Wish</label><input id="eT" value="${esc(it.title)}">
     <label class="f" style="margin-top:8px">Link</label><input id="eL" value="${esc(it.link||"")}" placeholder="optional">
     <label class="f" style="margin-top:8px">Approx. price</label><input id="eP" value="${esc(it.price||"")}" placeholder="optional">
     <label class="f" style="margin-top:8px">Size, colour, notes</label><input id="eN" value="${esc(it.note||"")}" placeholder="optional">
+    <div class="photoRow"><label class="btn ghost sm" style="cursor:pointer">📷 ${it.img?"Change photo":"Add photo"}<input type="file" id="ePhoto" accept="image/*" style="display:none"></label><img id="ePhotoPrev" class="${it.img?"":"hidden"}" alt=""><button class="btn ghost sm ${it.img?"":"hidden"}" id="ePhotoClear">Remove photo</button></div>
     <div class="row" style="margin-top:14px"><span class="spacer"></span><button class="btn" id="eSave">Save</button></div>`);
+  let newPhoto=null, removePhoto=false;
+  if(it.img) loadImage(it.img).then(d=>{ if(d) $("#ePhotoPrev").src=d; });
+  $("#ePhoto").onchange=async()=>{ const f=$("#ePhoto").files[0]; if(!f) return; try{ newPhoto=await shrinkImage(f); removePhoto=false; $("#ePhotoPrev").src=newPhoto; $("#ePhotoPrev").classList.remove("hidden"); $("#ePhotoClear").classList.remove("hidden"); }catch{ toast("Couldn't read that image."); } };
+  $("#ePhotoClear").onclick=()=>{ newPhoto=null; removePhoto=true; $("#ePhotoPrev").classList.add("hidden"); $("#ePhotoClear").classList.add("hidden"); };
   $("#eSave").onclick=async()=>{
     const title=$("#eT").value.trim(); if(!title){toast("The wish needs a name.");return;}
     const items=((wishes[ME]&&wishes[ME].items)||[]).map(x=>({...x}));
     const i=items.findIndex(x=>x.id===it.id); if(i<0){closeSheet();return;}
-    items[i]={...items[i],title,link:$("#eL").value.trim(),price:$("#eP").value.trim(),note:$("#eN").value.trim()};
+    let img=items[i].img||"";
+    if(newPhoto){ $("#eSave").disabled=true; const nid=await saveImage(newPhoto); $("#eSave").disabled=false; if(!nid){ toast("Photo didn't upload — try again."); return; } if(img) Store.delDoc("images/"+img); img=nid; }
+    else if(removePhoto && img){ Store.delDoc("images/"+img); img=""; }
+    items[i]={...items[i],title,link:$("#eL").value.trim(),price:$("#eP").value.trim(),note:$("#eN").value.trim(),img};
     const ok=await Store.setDoc("wishes/"+ME,{items,updated:Date.now()});
     if(ok){ closeSheet(); toast("Saved."); }
   };
@@ -583,13 +625,15 @@ $("#wAdd").onclick=async()=>{
   if(viewing!==ME) return;
   const title=$("#wTitle").value.trim(); if(!title){toast("What do you wish for?");return;}
   const items=((wishes[ME]&&wishes[ME].items)||[]).map(x=>({...x}));
-  items.push({id:uid(),title,link:$("#wLink").value.trim(),price:$("#wPrice").value.trim(),note:$("#wNote").value.trim(),takenBy:"",created:Date.now()});
+  let img=""; if(pendingPhoto){ $("#wAdd").disabled=true; img=(await saveImage(pendingPhoto))||""; $("#wAdd").disabled=false; if(!img){ toast("Photo didn't upload — try again."); return; } }
+  items.push({id:uid(),title,link:$("#wLink").value.trim(),price:$("#wPrice").value.trim(),note:$("#wNote").value.trim(),img,takenBy:"",created:Date.now()});
   const ok=await Store.setDoc("wishes/"+ME,{items,updated:Date.now()});
-  if(ok){ ["#wTitle","#wLink","#wPrice","#wNote"].forEach(s=>$(s).value=""); toast("Wish added."); }
+  if(ok){ ["#wTitle","#wLink","#wPrice","#wNote"].forEach(s=>$(s).value=""); $("#wPhotoClear").onclick(); toast("Wish added."); }
 };
 
 /* ---------- RECIPES ---------- */
 let foodFilter="All";
+let recipePhotos={}; // recipeId -> {img}
 const FOOD_FILTERS=["All","Norway","Spain","Main","Baking","Dessert","Drink"];
 function renderFoodFilters(){
   const w=$("#foodFilters"); w.innerHTML="";
@@ -599,11 +643,22 @@ function renderRecipes(){
   const w=$("#recipes"); w.innerHTML="";
   RECIPES.filter(r=>foodFilter==="All"||r.tags.includes(foodFilter)).forEach(r=>{
     const c=document.createElement("div"); c.className="card rc";
-    c.innerHTML=`<div class="ico">${r.ico}</div><div><h3>${esc(r.n)}</h3><div class="meta">${r.tags.map(t=>`<span class="tag">${t}</span>`).join("")} ${r.time} · serves ${r.serves}</div></div>`;
+    const rp=recipePhotos[r.id]&&recipePhotos[r.id].img;
+    c.innerHTML=`<div class="ico" id="rico-${r.id}">${r.ico}</div><div><h3>${esc(r.n)}</h3><div class="meta">${r.tags.map(t=>`<span class="tag">${t}</span>`).join("")} ${r.time} · serves ${r.serves}</div></div>`;
+    if(rp) loadImage(rp).then(d=>{ const el=c.querySelector("#rico-"+r.id); if(d&&el){ el.innerHTML=`<img src="${d}" alt="" style="width:52px;height:52px;border-radius:14px;object-fit:cover">`; } });
     c.onclick=()=>{ openSheet(`<div class="kicker">${r.tags.join(" · ")} · ${r.time} · serves ${r.serves}</div><h2>${esc(r.n)}</h2>
+      <div id="rPhotoWrap" style="margin-top:10px"></div>
+      <div class="photoRow"><label class="btn ghost sm" style="cursor:pointer">📷 ${rp?"Change photo":"Add a photo"}<input type="file" id="rPhoto" accept="image/*" style="display:none"></label>${rp?`<button class="btn ghost sm" id="rPhotoClear">Remove photo</button>`:""}</div>
       <h3 style="font-size:15px;margin-top:12px;color:var(--gold2)">Ingredients</h3><ul>${r.ing.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
       <h3 style="font-size:15px;margin-top:12px;color:var(--gold2)">Method</h3><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
       <div class="row" style="margin-top:14px"><label class="f" style="margin:0">Cook on</label><input type="date" id="rDate" style="width:auto" min="2026-12-01" max="2027-01-06" value="2026-12-24"><button class="btn sm" id="rPlan">Add to calendar</button></div>`);
+      if(rp) loadImage(rp).then(d=>{ if(d) $("#rPhotoWrap").innerHTML=`<img class="bigimg" src="${d}" alt="" style="max-height:40vh">`; });
+      $("#rPhoto").onchange=async()=>{ const f=$("#rPhoto").files[0]; if(!f) return;
+        try{ const data=await shrinkImage(f,640,0.75); const nid=await saveImage(data); if(!nid){toast("Photo didn't upload — try again.");return;}
+          if(rp) Store.delDoc("images/"+rp);
+          if(await Store.setDoc("recipephotos/"+r.id,{img:nid,by:ME||"",updated:Date.now()})){ closeSheet(); toast("Photo added."); } }
+        catch{ toast("Couldn't read that image."); } };
+      const rc=$("#rPhotoClear"); if(rc) rc.onclick=async()=>{ if(rp) Store.delDoc("images/"+rp); if(await Store.delDoc("recipephotos/"+r.id)){ closeSheet(); toast("Photo removed."); } };
       $("#rPlan").onclick=async()=>{
         const date=$("#rDate").value; if(!date) return;
         const ok=await Store.setDoc("calendar/"+uid(),{date,title:"Cook: "+r.n,time:"",who:ME||"Everyone",by:ME||"",created:Date.now()});
@@ -623,6 +678,7 @@ renderWho(); renderDoors(); renderFilters(); renderDays(); renderWishes(); rende
   Store.subscribeDoc("doors/all", d=>{doorsOverride=d||{};});
   Store.subscribeCol("calendar", o=>{events=o||{};renderDays();});
   Store.subscribeCol("wishes", o=>{wishes=o||{};renderWishes();});
+  Store.subscribeCol("recipephotos", o=>{recipePhotos=o||{};renderRecipes();});
 })();
 
 /* ---------- PWA: service worker + install hint ---------- */
